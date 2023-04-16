@@ -1,10 +1,12 @@
 package com.example.helloworld
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +14,26 @@ class MainActivity : AppCompatActivity() {
     var input1 = ""
     var input2 = ""
     var method = ""
+    val listResult: ArrayList<String> = arrayListOf()
+
+//    var resultLauncherNormal = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult(),
+//        object : ActivityResultCallback<ActivityResult> {
+//            override fun onActivityResult(result: ActivityResult?) {
+//                // There are no request codes
+//                val data: Intent? = result?.data
+//                Log.e(
+//                    "MainActivity",
+//                    "Second activity callback: " + data?.getStringExtra("second_key_1")
+//                )
+//            }
+//        })
+
+    var resultLauncherLambda = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        // There are no request codes
+        val data: Intent? = result.data
+        Log.e("MainActivity", "Second activity callback: " + data?.getStringExtra("second_key_1"))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +89,23 @@ class MainActivity : AppCompatActivity() {
 
         val btnResult = findViewById<Button>(R.id.btnResult)
         btnResult.setOnClickListener {
-            tvInput.text = getResult()
+            val value = getResult()
+            tvInput.text = value
+            listResult.add(value)
         }
+
+        val btnSecondActivity = findViewById<Button>(R.id.btnSecondActivity)
+        btnSecondActivity.setOnClickListener {
+            goToSecondActivity()
+        }
+    }
+
+    fun goToSecondActivity() {
+        val intent = Intent(this, HistoryWithRecycleViewActivity::class.java)
+        intent.putExtra("key_result", listResult.toTypedArray())
+//        startActivity(intent) // not return data
+//        resultLauncherNormal.launch(intent) // return data
+        resultLauncherLambda.launch(intent) // return data
     }
 
     fun getResult(): String {

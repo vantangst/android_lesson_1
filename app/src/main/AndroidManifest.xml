@@ -13,17 +13,11 @@
         android:theme="@style/Theme.HelloWorld"
         tools:targetApi="31">
         <activity
-            android:name=".SecondActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name=".HistoryWithRecycleViewActivity"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.HelloWorld.NoActionBar">
+            android:name=".HistoryWithListViewActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -31,7 +25,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.HelloWorld.NoActionBar">
+            android:theme="@style/Theme.HelloWorld">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
