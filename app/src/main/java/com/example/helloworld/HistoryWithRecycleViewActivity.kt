@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.helloworld.model.CalculatorResult
 
 
 class HistoryWithRecycleViewActivity : AppCompatActivity() {
@@ -15,13 +16,13 @@ class HistoryWithRecycleViewActivity : AppCompatActivity() {
 
     private fun setupUI() {
         // actionbar
-        supportActionBar?.setTitle("History")
+        supportActionBar?.title = "History"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val listData = intent.getStringArrayExtra("key_result")?.toList() ?: listOf<String>()
+        val listData = intent.getSerializableExtra("key_result") as? List<CalculatorResult> ?: listOf()
         val lvHistory = findViewById<RecyclerView>(R.id.rvHistory)
         val adapter = HistoryRecycleAdapter(listData, this)
-        lvHistory.setAdapter(adapter)
+        lvHistory.adapter = adapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

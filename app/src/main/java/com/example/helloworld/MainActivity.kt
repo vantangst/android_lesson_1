@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.helloworld.model.CalculatorResult
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     var input1 = ""
     var input2 = ""
     var method = ""
-    val listResult: ArrayList<String> = arrayListOf()
+    val listResult: ArrayList<CalculatorResult> = arrayListOf()
 
 //    var resultLauncherNormal = registerForActivityResult(
 //        ActivityResultContracts.StartActivityForResult(),
@@ -91,7 +94,9 @@ class MainActivity : AppCompatActivity() {
         btnResult.setOnClickListener {
             val value = getResult()
             tvInput.text = value
-            listResult.add(value)
+            val calendar =  Calendar.getInstance()
+            val formatter = SimpleDateFormat("dd/MM//yyyy hh:mm:ss")
+            listResult.add(CalculatorResult(value, formatter.format(calendar.time)))
         }
 
         val btnSecondActivity = findViewById<Button>(R.id.btnSecondActivity)
@@ -102,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     fun goToSecondActivity() {
         val intent = Intent(this, HistoryWithRecycleViewActivity::class.java)
-        intent.putExtra("key_result", listResult.toTypedArray())
+        intent.putExtra("key_result", listResult)
 //        startActivity(intent) // not return data
 //        resultLauncherNormal.launch(intent) // return data
         resultLauncherLambda.launch(intent) // return data

@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.helloworld.model.CalculatorResult
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryRecycleAdapter(val listData: List<String>, val context: Context): RecyclerView.Adapter<HistoryRecycleAdapter.ViewHolder>() {
+class HistoryRecycleAdapter(val listData: List<CalculatorResult>, val context: Context): RecyclerView.Adapter<HistoryRecycleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val convertView = LayoutInflater.from(context).inflate(R.layout.history_item, parent, false)
@@ -34,11 +35,9 @@ class HistoryRecycleAdapter(val listData: List<String>, val context: Context): R
             tvTime = view.findViewById(R.id.tvTime)
         }
 
-        fun bindData(item: String) {
-            tvTitle.text = item
-            val formatDate = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            val currentTime = Calendar.getInstance().time
-            tvTime.text = formatDate.format(currentTime)
+        fun bindData(item: CalculatorResult) {
+            tvTitle.text = item.result
+            tvTime.text = item.time
         }
     }
 }
