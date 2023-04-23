@@ -3,10 +3,13 @@ package com.example.helloworld
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.Toolbar
 import com.example.helloworld.model.CalculatorResult
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -42,8 +45,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.e("MainActivity", "onCreate" + " Ham main")
+        val toolbar = findViewById<Toolbar>(R.id.my_toolbar)
+        // custom overflow icon
+//        toolbar.overflowIcon = getDrawable(R.drawable.ic_baseline_settings_24)
+        setSupportActionBar(toolbar)
         setupUI()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_history -> {
+                goToSecondActivity()
+            }
+            else -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun setupUI() {

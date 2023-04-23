@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Main.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar">
+<!--        <item name="android:colorForeground">@color/white</item>-->
+
+        <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <!-- navigation icon color -->
+<!--        <item name="colorControlNormal">@color/white</item>-->
+
+        <!-- color of the menu overflow icon -->
+        <item name="android:textColorSecondary">@color/white</item>
+
+    </style>
+    
+</resources>
