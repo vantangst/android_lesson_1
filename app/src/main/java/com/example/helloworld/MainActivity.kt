@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     var input1 = ""
     var input2 = ""
     var method = ""
-    val listResult: ArrayList<CalculatorResult> = arrayListOf()
+    var listResult: ArrayList<CalculatorResult> = arrayListOf()
 
 //    var resultLauncherNormal = registerForActivityResult(
 //        ActivityResultContracts.StartActivityForResult(),
@@ -39,6 +39,16 @@ class MainActivity : AppCompatActivity() {
         // There are no request codes
         val data: Intent? = result.data
         Log.e("MainActivity", "Second activity callback: " + data?.getStringExtra("second_key_1"))
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable("key_result", listResult)
+        super.onSaveInstanceState(outState)
+    }
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        listResult = savedInstanceState.getSerializable("key_result") as? ArrayList<CalculatorResult> ?: arrayListOf()
+        tvInput.text = listResult.last().result
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
